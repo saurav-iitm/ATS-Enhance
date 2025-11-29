@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI ATS Resume Checker & Optimizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="body-bg">
+<div class="page-wrapper">
+
+    <!-- Top Nav / Branding -->
+    <header class="top-nav">
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">ATS<span>Enhance</span></span>
+        </div>
+        <nav class="nav-links">
+            <a href="#how-it-works">How it works</a>
+            <a href="#features">Features</a>
+            <a href="#faq">FAQ</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-left">
+            <h1>Make Your Resume <span class="gradient-text">ATS Friendly</span></h1>
+            <p class="hero-subtitle">
+                Upload your resume, paste a job description, and let My AI Powered web to rewrite it to pass ATS scans
+                and highlight the right keywords — without adding fake experience.
+            </p>
+            <div class="hero-badges">
+                <span>✅ Free ATS scan</span>
+                <span>🤖 AI-powered rewrite</span>
+                <span>⬇ Download as PDF/DOCX/TXT</span>
+            </div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-card">
+                <h2>Scan & Optimize Your Resume</h2>
+                <p class="hero-card-sub">1. Upload resume · 2. Paste job description · 3. Get AI-optimized version</p>
+
+                <form action="{{ url_for('rewrite') }}" method="POST" enctype="multipart/form-data" class="ats-form">
+                    <div class="form-cols">
+                        <!-- Upload -->
+                        <div class="form-left">
+                            <label class="field-label">Upload Resume</label>
+                            <label class="upload-area">
+                                <span class="upload-title">Drop file or click</span>
+                                <span class="upload-subtitle">Supported: PDF, DOCX, TXT, RTF, HTML</span>
+                                <input type="file"
+                                       name="resume_file"
+                                       accept=".pdf,.docx,.rtf,.html,.txt"
+                                       required>
+                            </label>
+                        </div>
+
+                        <!-- Job Description -->
+                        <div class="form-right">
+                            <label class="field-label">Job Description</label>
+                            <textarea name="job_description" rows="10"
+                                      placeholder="Paste the job description here..."
+                                      required></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" type="submit">
+                        🚀 Check & Rewrite Resume
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section id="how-it-works" class="card section-padded">
+        <h2 class="section-title">How it works</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                <h3>Upload your resume</h3>
+                <p>We support PDF, DOCX, TXT, RTF, and HTML. Your file is processed securely on your machine plus Gemini API.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">2</span>
+                <h3>Paste job description</h3>
+                <p>Our ATS engine extracts skills & keywords from the job posting to evaluate your resume match.</p>
+            </div>
+            <div class="step">
+                <span class="step-number">3</span>
+                <h3>AI rewrites for ATS</h3>
+                <p>AI Powered web improves your resume text, adds missing keywords naturally and keeps things truthful.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="card section-padded">
+        <h2 class="section-title">Features for serious job seekers</h2>
+        <div class="feature-grid">
+            <div class="feature-box">
+                <h3>ATS Score</h3>
+                <p>We check keyword match vs job description so you know how well your resume will pass screening bots.</p>
+            </div>
+            <div class="feature-box">
+                <h3>AI Chat Assistant</h3>
+                <p>Ask anything about your resume, bullet points, or how to tailor it for a specific role.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Re-Improve in One Click</h3>
+                <p>On the result page, use <b>⚡ Improve Again</b> to iterate until you’re happy with the resume.</p>
+            </div>
+            <div class="feature-box">
+                <h3>Download in Same Format</h3>
+                <p>Download your AI-optimized resume in PDF, DOCX, or TXT depending on your original upload.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="card section-padded">
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq-item">
+            <h4>Does this add fake experience?</h4>
+            <p>No. The AI only rewrites wording and adds keywords based on what you already have. No fake jobs or tools.</p>
+        </div>
+        <div class="faq-item">
+            <h4>Will it preserve my formatting exactly?</h4>
+            <p>Text structure is preserved as much as possible, but layout of PDFs may differ. You can adjust final layout in Word or Google Docs.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with 🧠 AI to help you get more interviews.</p>
+    </footer>
+</div>
+
+<!-- 🌟 AI Assistant Floating Button -->
+<div id="chatButton">💬 AI Resume Assistant</div>
+
+<!-- 🌟 Chat Window -->
+<div id="chatContainer">
+    <div id="chatHeader">
+        🤖 ATS Resume AI Assistant
+        <span id="chatClose">✖</span>
+    </div>
+
+    <div id="chatMessages"></div>
+
+    <div id="chatInputContainer">
+        <input type="text" id="chatInput" placeholder="Ask anything about your resume..." />
+        <button id="chatSendBtn">➤</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

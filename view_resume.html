@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Optimized Resume | ATSBoost</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="body-bg">
+<div class="page-wrapper">
+
+    <header class="top-nav">
+        <div class="logo">
+            <span class="logo-icon">⚡</span>
+            <span class="logo-text">ATS<span>Boost</span></span>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+        </nav>
+    </header>
+
+    <section class="card result-card">
+        <div class="result-header">
+            <div>
+                <h1>🚀 AI Optimized Resume</h1>
+                <p class="subtitle">
+                    Below is your AI-improved resume, tailored to the job description. You can improve again or download it.
+                </p>
+            </div>
+            <div class="score-panel">
+                <div class="score-circle big">
+                    <span class="score-number" id="score">{{ score }}</span>
+                    <span class="score-denom">/100</span>
+                </div>
+                <p class="score-label">Estimated ATS Match</p>
+            </div>
+        </div>
+
+          <div class="resume-box">
+            
+           {{ rewritten_resume | safe }}
+            
+           </div>
+        
+
+            <div class="side-panel">
+                <h3>Actions</h3>
+                <button class="btn-primary full-width" onclick="improveAgain()">⚡ Improve Again</button>
+
+                <form action="/download" method="POST" class="download-form">
+                    <input type="hidden" name="resume_text" id="downloadText" value="{{ raw_resume }}">
+                    <input type="hidden" name="ext" value="{{ original_ext }}">
+                    <input type="hidden" name="job_text" value="{{ job_text }}">
+                    <button type="submit" class="btn-secondary full-width">
+                        ⬇ Download ({{ original_ext.upper() }})
+                    </button>
+                </form>
+                <form action="/download_txt" method="POST" class="download-form">
+                  <input type="hidden" name="resume_text" id="txtData" value="{{ raw_resume }}">
+                  <button type="submit" class="btn-secondary full-width">
+                      📝 Download TXT
+                  </button>
+                </form>
+                <form action="/download_doc" method="POST" class="download-form">
+                  <input type="hidden" name="resume_text" id="docData" value="{{ raw_resume }}">
+                  <button type="submit" class="btn-secondary full-width">
+                      📝 Download DOC
+                  </button>
+                </form>
+              
+              
+                <div class="hint-box">
+                    <p>💡 Tip: After downloading, open in Word/Docs and adjust fonts or spacing as needed. Content is already ATS-optimized.</p>
+                </div>
+            </div>
+        </div>
+
+        <textarea id="rawData" hidden>{{ raw_resume }}</textarea>
+        <textarea id="jobData" hidden>{{ job_text }}</textarea>
+    </section>
+
+    <footer class="footer">
+        <a href="{{ url_for('home') }}">⬅ Back to home</a>
+    </footer>
+</div>
+
+<!-- Chatbot -->
+<div id="chatButton">💬 AI Resume Assistant</div>
+
+<div id="chatContainer">
+    <div id="chatHeader">
+        🤖 ATS Resume AI Assistant
+        <span id="chatClose">✖</span>
+    </div>
+    <div id="chatMessages"></div>
+    <div id="chatInputContainer">
+        <input type="text" id="chatInput" placeholder="Ask how to improve this resume further..." />
+        <button id="chatSendBtn">➤</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
